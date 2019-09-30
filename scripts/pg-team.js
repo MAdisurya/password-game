@@ -53,7 +53,7 @@ class PGTeamSetup extends React.Component
         this.newTeam.data.players.push(newPlayer);
 
         this.setState(state => ({
-            playerItems: state.playerItems.concat(newPlayer)
+            playerItems: this.newTeam.data.players
         }));
     }
 
