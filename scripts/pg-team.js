@@ -46,11 +46,11 @@ class PGTeamSetup extends React.Component
     addPlayer()
     {
         const newPlayer = new PGPlayer();
-        newPlayer.data.playerId = this.state.playerCount;
+        newPlayer.data.playerId = this.state.playerItems.length;
         newPlayer.data.playerName = 
             `Player ${this.state.playerItems.length + 1}`;
 
-        this.newTeam.data.players.concat(newPlayer);
+        this.newTeam.data.players.push(newPlayer);
 
         this.setState(state => ({
             playerItems: state.playerItems.concat(newPlayer)
