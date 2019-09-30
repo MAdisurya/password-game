@@ -34,27 +34,28 @@ class PGTeamSetup extends React.Component
     {
         super(props);
 
-        this.state = {
-            playerItems: []
-        };
-
         this.newTeam = new PGTeam();
         
         this.addPlayer = this.addPlayer.bind(this);
     }
 
+    componentDidMount()
+    {
+        this.addPlayer();
+        this.addPlayer();
+    }
+
+
     addPlayer()
     {
         const newPlayer = new PGPlayer();
-        newPlayer.data.playerId = this.state.playerItems.length;
+        newPlayer.data.playerId = this.newTeam.data.players.length;
         newPlayer.data.playerName = 
-            `Player ${this.state.playerItems.length + 1}`;
+            `Player ${this.newTeam.data.players.length + 1}`;
 
         this.newTeam.data.players.push(newPlayer);
 
-        this.setState(state => ({
-            playerItems: this.newTeam.data.players
-        }));
+        this.forceUpdate();
     }
 
     render()
@@ -62,7 +63,7 @@ class PGTeamSetup extends React.Component
         return (
             <div className="pg-team-setup-ctn">
                 <h2>{this.props.teamName}</h2>
-                <PGTeamList playerItems={this.state.playerItems} />
+                <PGTeamList playerItems={this.newTeam.data.players} />
                 <PGButtonCircle buttonName="+" onClick={this.addPlayer} />
             </div>
         );
