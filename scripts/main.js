@@ -3,9 +3,9 @@ class App extends React.Component
     render()
     {
         return (
-            <section class="main-section">
+            <section className="main-section">
                 <section id="pg-menu">
-                    <h1 class="main-title">PASSWORD</h1>
+                    <h1 className="main-title">PASSWORD</h1>
 
                     <PGButton buttonName="Play" className="play-btn" />
                     <PGButton buttonName="Rules" className="rules-btn" />
@@ -13,10 +13,10 @@ class App extends React.Component
                 </section>
 
                 <section id="pg-team-setup">
-                    <div class="team-one-setup-ctn">
+                    <div className="team-one-setup-ctn">
                         <PGTeamSetup teamName="TEAM ONE" />
                     </div>
-                    <div class="team-two-setup-ctn">
+                    <div className="team-two-setup-ctn">
                         <PGTeamSetup teamName="TEAM TWO" />
                     </div>
                 </section>

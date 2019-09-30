@@ -15,8 +15,11 @@ class PGTeamList extends React.Component
         return (
             <form>
                 {this.props.playerItems.map(playerItem => (
-                    <div class="pg-player-input">
-                        <input value={playerItem.data.playerName} />
+                    <div className="pg-player-input-ctn">
+                        <input 
+                            className="pg-player-input"
+                            defaultValue={playerItem.data.playerName}
+                        />
                         <br />
                     </div>
                 ))}
