@@ -29,7 +29,6 @@ class PGTeamSetup extends React.Component
     addPlayer()
     {
         const newPlayer = new PGPlayer();
-        newPlayer.data.playerId = this.newTeam.data.players.length;
         newPlayer.data.playerName = 
             `Player ${this.newTeam.data.players.length + 1}`;
 
@@ -41,7 +40,6 @@ class PGTeamSetup extends React.Component
     removePlayer(e)
     {
         this.newTeam.data.players.splice(e.target.value, 1);
-        console.log(this.newTeam.data.players);
 
         this.forceUpdate();
     }
@@ -52,14 +50,12 @@ class PGTeamSetup extends React.Component
             <div className="pg-team-setup-ctn">
                 <h2>{this.props.teamName}</h2>
                 <form>
-                {this.newTeam.data.players.map(playerItem => (
+                {this.newTeam.data.players.map((playerItem, index) => (
                     <div className="pg-player-input-ctn">
-                        <input 
-                            className="pg-player-input"
-                            defaultValue={playerItem.data.playerName}
-                        />
+                        <PGInput className="pg-player-input" value={playerItem.data.playerName} />
                         <button 
-                            value={playerItem.data.playerId}
+                            type="button"
+                            value={index}
                             className="remove-btn"
                             onClick={this.removePlayer}
                         >Remove</button>
