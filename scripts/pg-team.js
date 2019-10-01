@@ -17,6 +17,7 @@ class PGTeamSetup extends React.Component
         this.newTeam = new PGTeam();
         
         this.addPlayer = this.addPlayer.bind(this);
+        this.removePlayer = this.removePlayer.bind(this);
     }
 
     componentDidMount()
@@ -37,6 +38,14 @@ class PGTeamSetup extends React.Component
         this.forceUpdate();
     }
 
+    removePlayer(e)
+    {
+        this.newTeam.data.players.splice(e.target.value, 1);
+        console.log(this.newTeam.data.players);
+
+        this.forceUpdate();
+    }
+
     render()
     {   
         return (
@@ -49,10 +58,11 @@ class PGTeamSetup extends React.Component
                             className="pg-player-input"
                             defaultValue={playerItem.data.playerName}
                         />
-                        <a 
-                            href="#"
+                        <button 
+                            value={playerItem.data.playerId}
                             className="remove-btn"
-                        >Remove</a>
+                            onClick={this.removePlayer}
+                        >Remove</button>
                     </div>
                 ))}
             </form>
