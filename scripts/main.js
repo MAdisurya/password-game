@@ -27,6 +27,8 @@ class App extends React.Component
                     <div className="team-two-setup-ctn">
                         <PGTeamSetup teamName="TEAM TWO" />
                     </div>
+
+                    <PGButton buttonName="Start" className="start-btn" />
                 </section>
             </section>
         )

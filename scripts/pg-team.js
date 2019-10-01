@@ -8,26 +8,6 @@ class PGTeam
     }
 }
 
-class PGTeamList extends React.Component
-{
-    render()
-    {
-        return (
-            <form>
-                {this.props.playerItems.map(playerItem => (
-                    <div className="pg-player-input-ctn">
-                        <input 
-                            className="pg-player-input"
-                            defaultValue={playerItem.data.playerName}
-                        />
-                        <br />
-                    </div>
-                ))}
-            </form>
-        );
-    }
-}
-
 class PGTeamSetup extends React.Component
 {
     constructor(props)
@@ -44,7 +24,6 @@ class PGTeamSetup extends React.Component
         this.addPlayer();
         this.addPlayer();
     }
-
 
     addPlayer()
     {
@@ -63,7 +42,20 @@ class PGTeamSetup extends React.Component
         return (
             <div className="pg-team-setup-ctn">
                 <h2>{this.props.teamName}</h2>
-                <PGTeamList playerItems={this.newTeam.data.players} />
+                <form>
+                {this.newTeam.data.players.map(playerItem => (
+                    <div className="pg-player-input-ctn">
+                        <input 
+                            className="pg-player-input"
+                            defaultValue={playerItem.data.playerName}
+                        />
+                        <a 
+                            href="#"
+                            className="remove-btn"
+                        >Remove</a>
+                    </div>
+                ))}
+            </form>
                 <PGButtonCircle buttonName="+" onClick={this.addPlayer} />
             </div>
         );
