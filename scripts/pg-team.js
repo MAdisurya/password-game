@@ -18,12 +18,18 @@ class PGTeamSetup extends React.Component
         
         this.addPlayer = this.addPlayer.bind(this);
         this.removePlayer = this.removePlayer.bind(this);
+        this.updatePlayerName = this.updatePlayerName.bind(this);
     }
 
     componentDidMount()
     {
         this.addPlayer();
         this.addPlayer();
+    }
+
+    updatePlayerName(name, index)
+    {
+        this.newTeam.data.players[index].playerName = name;
     }
 
     addPlayer()
@@ -34,12 +40,15 @@ class PGTeamSetup extends React.Component
 
         this.newTeam.data.players.push(newPlayer);
 
+        console.log(this.newTeam.data.players);
+
         this.forceUpdate();
     }
 
     removePlayer(e)
     {
         this.newTeam.data.players.splice(e.target.value, 1);
+        console.log(this.newTeam.data.players);
 
         this.forceUpdate();
     }
@@ -50,18 +59,24 @@ class PGTeamSetup extends React.Component
             <div className="pg-team-setup-ctn">
                 <h2>{this.props.teamName}</h2>
                 <form>
-                {this.newTeam.data.players.map((playerItem, index) => (
-                    <div className="pg-player-input-ctn">
-                        <PGInput className="pg-player-input" value={playerItem.data.playerName} />
-                        <button 
-                            type="button"
-                            value={index}
-                            className="remove-btn"
-                            onClick={this.removePlayer}
-                        >Remove</button>
-                    </div>
-                ))}
-            </form>
+                    {this.newTeam.data.players.map((playerItem, index) => (
+                        <div className="pg-player-input-ctn">
+                            <p>{playerItem.data.playerName}</p>
+                            <PGInput 
+                                className="pg-player-input" 
+                                initialValue={playerItem.data.playerName}
+                                indexValue={index} 
+                                onChange={this.updatePlayerName} 
+                            />
+                            <button 
+                                type="button"
+                                value={index}
+                                className="remove-btn"
+                                onClick={this.removePlayer}
+                            >Remove</button>
+                        </div>
+                    ))}
+                </form>
                 <PGButtonCircle buttonName="+" onClick={this.addPlayer} />
             </div>
         );

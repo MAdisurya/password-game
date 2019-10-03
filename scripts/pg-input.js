@@ -5,10 +5,16 @@ class PGInput extends React.Component
         super(props);
 
         this.state = {
-            value: this.props.value
+            value: this.props.initialValue
         }
 
         this.onValueChanged = this.onValueChanged.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState)
+    {
+        console.log(`Cur state val: ${this.state.value}`);
+        console.log(`Prev state val: ${prevState.value}`);
     }
 
     onValueChanged(e)
@@ -16,6 +22,8 @@ class PGInput extends React.Component
         this.setState({
             value: e.target.value
         });
+
+        this.props.onChange(e.target.value, this.props.indexValue);
     }
 
     render()
