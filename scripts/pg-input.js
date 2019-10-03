@@ -11,12 +11,6 @@ class PGInput extends React.Component
         this.onValueChanged = this.onValueChanged.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState)
-    {
-        console.log(`Cur state val: ${this.state.value}`);
-        console.log(`Prev state val: ${prevState.value}`);
-    }
-
     onValueChanged(e)
     {
         this.setState({
