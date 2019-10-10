@@ -16,7 +16,7 @@ class PGTeamSetup extends React.Component
         super(props);
 
         this.newTeam = new PGTeam();
-        this.newTeam.data.playerName = this.props.teamName;
+        this.newTeam.data.teamName = this.props.teamName;
         
         this.addPlayer = this.addPlayer.bind(this);
         this.removePlayer = this.removePlayer.bind(this);
@@ -27,6 +27,21 @@ class PGTeamSetup extends React.Component
     {
         this.addPlayer();
         this.addPlayer();
+
+        // Register the team into AppManager
+        AppManager.registerTeam(this.newTeam);
+
+        // Re-assign newTeam to point to 
+        // recently registered team in AppManager.gameTeams
+        try
+        {
+            this.newTeam = AppManager.gameTeams[AppManager.gameTeams.length - 1];
+        }
+        catch (err)
+        {
+            console.log("Failed to re-assign PGTeamSetup.newTeam to AppManager.gameTeam at given index");
+            console.log("Error code: " + err);
+        }
     }
 
     /**
