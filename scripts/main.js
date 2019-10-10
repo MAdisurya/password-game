@@ -28,7 +28,23 @@ class App extends React.Component
                         <PGTeamSetup teamName="TEAM TWO" />
                     </div>
 
-                    <PGButton buttonName="Start" className="start-btn" />
+                    <PGButton 
+                        buttonName="Start" 
+                        className="start-btn"
+                        onClick = {() => {
+                            // Need to replace with CSS / Less when implemeneted
+                            document.getElementById('pg-team-setup').style.display = 'none';
+                            document.getElementById('pg-game').style.display = 'block';
+                        }} 
+                    />
+                </section>
+
+                <section id="pg-game" style={{display: 'none'}}>
+                    <div className="header-ctn"></div>
+                    <div className="sub-header-ctn"></div>
+                    <PGButtonCircle buttonName="Yes" className="game-btn yes-btn" />
+                    <PGButtonCircle buttonName="No" className="game-btn no-btn" />
+                    <div className="password-holder"></div>
                 </section>
             </section>
         )
