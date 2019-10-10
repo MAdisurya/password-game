@@ -85,7 +85,6 @@ class PGTeamSetup extends React.Component
                 <form>
                     {this.newTeam.data.players.map((playerItem, index) => (
                         <div key={playerItem.data.playerName} className="pg-player-input-ctn">
-                            <p>{playerItem.data.playerName}</p>
                             <PGInput 
                                 className="pg-player-input" 
                                 initialValue={playerItem.data.playerName}
