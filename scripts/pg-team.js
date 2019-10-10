@@ -3,6 +3,7 @@ class PGTeam
     constructor()
     {
         this.data = {
+            teamName: "",
             players: []
         };
     }
@@ -15,6 +16,7 @@ class PGTeamSetup extends React.Component
         super(props);
 
         this.newTeam = new PGTeam();
+        this.newTeam.data.playerName = this.props.teamName;
         
         this.addPlayer = this.addPlayer.bind(this);
         this.removePlayer = this.removePlayer.bind(this);
