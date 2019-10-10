@@ -1,3 +1,17 @@
+class AppManager
+{
+    static gameTeams = []
+
+    /**
+     * Registers a PGTeam into the static AppManager.gameTeams array
+     * @param {*} team - the PGTeam to register
+     */
+    static registerTeam(team)
+    {
+        this.gameTeams.push(team);
+    }
+}
+
 class App extends React.Component
 {
     render()
@@ -40,11 +54,7 @@ class App extends React.Component
                 </section>
 
                 <section id="pg-game" style={{display: 'none'}}>
-                    <div className="header-ctn"></div>
-                    <div className="sub-header-ctn"></div>
-                    <PGButtonCircle buttonName="Yes" className="game-btn yes-btn" />
-                    <PGButtonCircle buttonName="No" className="game-btn no-btn" />
-                    <div className="password-holder"></div>
+                    <PGGame />
                 </section>
             </section>
         )
