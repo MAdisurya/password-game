@@ -10,6 +10,7 @@ class PGGame extends React.Component
 
         this.state = {
             roundCounter: 0,
+            failedAttempts: 0,
             password: "",
             currentTeamTurn: 0
         };
@@ -17,6 +18,10 @@ class PGGame extends React.Component
         this.setRandomPassword = this.setRandomPassword.bind(this);
         this.setCurrentTeamTurn = this.setCurrentTeamTurn.bind(this);
         this.nextTeamTurn = this.nextTeamTurn.bind(this);
+        this.nextRound = this.nextRound.bind(this);
+        this.nextTurn = this.nextTurn.bind(this);
+        this.resetProps = this.resetProps.bind(this);
+        this.resetGame = this.resetGame.bind(this);
     }
 
     componentDidMount()
@@ -63,6 +68,22 @@ class PGGame extends React.Component
     }
 
     /**
+     * Overloaded method that sets the current team turn using team index
+     * @param {*} teamIndex - the zero-based index of team in AppManager.gameTeams array
+     */
+    setCurrentTeamTurn(teamIndex)
+    {
+        if (teamIndex >= AppManager.gameTeams.length - 1)
+        {
+            throw "Cannot set currentTeamTurn to passed index because index is out of range";
+        }
+
+        this.setState({
+            currentTeamTurn: teamIndex
+        });
+    }
+
+    /**
      * Cycles through to the next team turn.
      * If at last team in AppManager.gameTeams, turn will go to first team
      */
@@ -82,6 +103,65 @@ class PGGame extends React.Component
         }
     }
 
+    /**
+     * Cycles through to the next round of the game
+     */
+    nextRound()
+    {
+        this.setState((state) => ({
+            roundCounter: state.roundCounter + 1,
+            failedAttempts: 0
+        }));
+
+        this.setCurrentTeamTurn(0);
+        this.setRandomPassword();
+    }
+
+    /**
+     * Cycles through to the next turn
+     * when password answer given is incorrect.
+     */
+    nextTurn()
+    {
+        if (this.state.failedAttempts >= this.maxPoints - 1)
+        {
+            this.nextRound();
+            return undefined;
+        }
+
+        this.nextTeamTurn();
+
+        this.setState((state) => ({
+            failedAttempts: state.failedAttempts + 1
+        }));
+    }
+
+    /**
+     * Resets necessary properties to start a new round
+     */
+    resetProps()
+    {
+        this.setState({
+            failedAttempts: 0
+        })
+
+        this.setCurrentTeamTurn(0);
+    }
+
+    /**
+     * Resets the game
+     */
+    resetGame()
+    {
+        this.setState({
+            roundCounter: 0,
+            failedAttempts: 0,
+            currentTeamTurn: 0,
+        });
+
+        this.setRandomPassword();
+    }
+
     render()
     {
         return (
@@ -89,8 +169,13 @@ class PGGame extends React.Component
                 <div className="header-ctn"></div>
                 <div className="sub-header-ctn"></div>
                 <div className="password-holder">{this.state.password}</div>
-                <PGButtonCircle buttonName="Yes" className="game-btn yes-btn" />
-                <PGButtonCircle buttonName="No" className="game-btn no-btn" />
+                <PGButtonCircle 
+                    buttonName="Yes" 
+                    className="game-btn yes-btn" />
+                <PGButtonCircle 
+                    buttonName="No" 
+                    className="game-btn no-btn" 
+                    onClick={this.nextTurn} />
             </div>
         );
     }
