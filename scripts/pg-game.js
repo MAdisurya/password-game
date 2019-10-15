@@ -4,13 +4,19 @@ class PGGame extends React.Component
     {
         super(props);
 
+        this.maxPoints = 6;
+
         this.passwordList = new PGPasswordList();
 
         this.state = {
             roundCounter: 0,
             password: "",
-            currentTeamTurn: ""
+            currentTeamTurn: 0
         };
+
+        this.setRandomPassword = this.setRandomPassword.bind(this);
+        this.setCurrentTeamTurn = this.setCurrentTeamTurn.bind(this);
+        this.nextTeamTurn = this.nextTeamTurn.bind(this);
     }
 
     componentDidMount()
@@ -24,12 +30,56 @@ class PGGame extends React.Component
      */
     setRandomPassword()
     {
-        var randomNumber = 
+        const randomNumber = 
             Math.floor(Math.random() * (this.passwordList.list.length - 1));
 
         this.setState({
             password: this.passwordList.list[randomNumber]
         });
+    }
+
+    /**
+     * Sets the current turn for team using the team name
+     * @param {*} teamName - the name of the team
+     */
+    setCurrentTeamTurn(teamName)
+    {
+        // Linear search necessary as need to check if team exists
+        // with passed teamName
+        for (var team in AppManager.gameTeams)
+        {
+            if (AppManager.gameTeams[team].data.teamName == teamName)
+            {
+                this.setState({
+                    currentTeamTurn: team
+                });
+
+                return undefined;
+            }
+        }
+
+        // If teamName doesn't exist
+        throw "The teamName specified does not exist in AppManager.gameTeams";
+    }
+
+    /**
+     * Cycles through to the next team turn.
+     * If at last team in AppManager.gameTeams, turn will go to first team
+     */
+    nextTeamTurn()
+    {
+        if (this.state.currentTeamTurn < AppManager.gameTeams.length - 1)
+        {
+            this.setState((state) => ({
+                currentTeamTurn: state.currentTeamTurn + 1
+            }));
+        }
+        else
+        {
+            this.setState({
+                currentTeamTurn: 0
+            });
+        }
     }
 
     render()
