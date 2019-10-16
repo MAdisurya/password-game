@@ -17,6 +17,7 @@ class PGGame extends React.Component
 
         this.setRandomPassword = this.setRandomPassword.bind(this);
         this.setCurrentTeamTurn = this.setCurrentTeamTurn.bind(this);
+        this.awardPoints = this.awardPoints.bind(this);
         this.nextTeamTurn = this.nextTeamTurn.bind(this);
         this.nextRound = this.nextRound.bind(this);
         this.nextTurn = this.nextTurn.bind(this);
@@ -84,6 +85,17 @@ class PGGame extends React.Component
     }
 
     /**
+     * Awards points to the team with passed teamIndex based on how many failed attempts
+     * @param {*} teamIndex - the index of the team to find in gameTeams array
+     */
+    awardPoints(teamIndex)
+    {
+        var points = this.maxPoints - this.state.failedAttempts;
+
+        console.log(points);
+    }
+
+    /**
      * Cycles through to the next team turn.
      * If at last team in AppManager.gameTeams, turn will go to first team
      */
@@ -113,7 +125,8 @@ class PGGame extends React.Component
             failedAttempts: 0
         }));
 
-        this.setCurrentTeamTurn(0);
+        this.nextTeamTurn();
+        this.awardPoints();
         this.setRandomPassword();
     }
 
@@ -123,7 +136,7 @@ class PGGame extends React.Component
      */
     nextTurn()
     {
-        if (this.state.failedAttempts >= this.maxPoints - 1)
+        if (this.state.failedAttempts >= this.maxPoints)
         {
             this.nextRound();
             return undefined;
