@@ -4,6 +4,7 @@ class PGTeam
     {
         this.data = {
             teamName: "",
+            points: 0,
             players: []
         };
     }
