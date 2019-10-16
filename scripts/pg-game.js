@@ -92,7 +92,7 @@ class PGGame extends React.Component
     {
         var points = this.maxPoints - this.state.failedAttempts;
 
-        console.log(points);
+        AppManager.gameTeams[this.state.currentTeamTurn].data.points += points;
     }
 
     /**
@@ -128,6 +128,8 @@ class PGGame extends React.Component
         this.nextTeamTurn();
         this.awardPoints();
         this.setRandomPassword();
+
+        console.log(AppManager.gameTeams);
     }
 
     /**
@@ -184,7 +186,8 @@ class PGGame extends React.Component
                 <div className="password-holder">{this.state.password}</div>
                 <PGButtonCircle 
                     buttonName="Yes" 
-                    className="game-btn yes-btn" />
+                    className="game-btn yes-btn"
+                    onClick={this.nextRound} />
                 <PGButtonCircle 
                     buttonName="No" 
                     className="game-btn no-btn" 
