@@ -87,12 +87,15 @@ class PGGame extends React.Component
     /**
      * Awards points to the team with passed teamIndex based on how many failed attempts
      * @param {*} teamIndex - the index of the team to find in gameTeams array
+     * @param {*} pointAmount - The amount of points to award. Default is 0.
      */
-    awardPoints(teamIndex)
+    awardPoints(teamIndex, pointAmount = 0)
     {
-        var points = this.maxPoints - this.state.failedAttempts;
+        var points = (pointAmount <= 0) ? 
+            this.maxPoints - this.state.failedAttempts :
+            pointAmount;
 
-        AppManager.gameTeams[this.state.currentTeamTurn].data.points += points;
+        AppManager.gameTeams[teamIndex].data.points += points;
     }
 
     /**
@@ -125,8 +128,8 @@ class PGGame extends React.Component
             failedAttempts: 0
         }));
 
+        this.awardPoints(this.state.currentTeamTurn);
         this.nextTeamTurn();
-        this.awardPoints();
         this.setRandomPassword();
 
         console.log(AppManager.gameTeams);
