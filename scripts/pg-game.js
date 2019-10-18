@@ -5,6 +5,7 @@ class PGGame extends React.Component
         super(props);
 
         this.maxPoints = 6;
+        this.penaltyPoints = -4;
 
         this.passwordList = new PGPasswordList();
 
@@ -21,6 +22,7 @@ class PGGame extends React.Component
         this.nextTeamTurn = this.nextTeamTurn.bind(this);
         this.nextRound = this.nextRound.bind(this);
         this.nextTurn = this.nextTurn.bind(this);
+        this.onCheat = this.onCheat.bind(this);
         this.resetProps = this.resetProps.bind(this);
         this.resetGame = this.resetGame.bind(this);
     }
@@ -91,7 +93,7 @@ class PGGame extends React.Component
      */
     awardPoints(teamIndex, pointAmount = 0)
     {
-        var points = (pointAmount <= 0) ? 
+        var points = (pointAmount == 0) ? 
             this.maxPoints - this.state.failedAttempts :
             pointAmount;
 
@@ -132,6 +134,7 @@ class PGGame extends React.Component
         this.nextTeamTurn();
         this.setRandomPassword();
 
+        console.log("nextRound method invoked:");
         console.log(AppManager.gameTeams);
     }
 
@@ -152,6 +155,25 @@ class PGGame extends React.Component
         this.setState((state) => ({
             failedAttempts: state.failedAttempts + 1
         }));
+    }
+
+    /**
+     * Method that handles cheating. Don't cheat.
+     */
+    onCheat()
+    {
+        this.awardPoints(this.state.currentTeamTurn, this.penaltyPoints);
+
+        this.setState((state) => ({
+            roundCounter: state.roundCounter + 1,
+            failedAttempts: 0
+        }));
+
+        this.nextTeamTurn();
+        this.setRandomPassword();
+
+        console.log("onCheat method invoked:");
+        console.log(AppManager.gameTeams);
     }
 
     /**
@@ -186,7 +208,7 @@ class PGGame extends React.Component
             <div className="game-ctn">
                 <div className="header-ctn"></div>
                 <div className="sub-header-ctn"></div>
-                <div className="password-holder">{this.state.password}</div>
+                <div className="password-holder" onClick={this.onCheat}>{this.state.password}</div>
                 <PGButtonCircle 
                     buttonName="Yes" 
                     className="game-btn yes-btn"
