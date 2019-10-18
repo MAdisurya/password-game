@@ -13,7 +13,8 @@ class PGGame extends React.Component
             roundCounter: 0,
             failedAttempts: 0,
             password: "",
-            currentTeamTurn: 0
+            currentTeamTurn: 0,
+            currentTeamName: ""
         };
 
         this.setRandomPassword = this.setRandomPassword.bind(this);
@@ -30,6 +31,11 @@ class PGGame extends React.Component
     componentDidMount()
     {
         this.setRandomPassword();
+
+        this.setState({
+            currentTeamName: AppManager
+                .gameTeams[this.state.currentTeamTurn].data.teamName
+        });
     }
 
     /**
@@ -59,7 +65,8 @@ class PGGame extends React.Component
             if (AppManager.gameTeams[team].data.teamName == teamName)
             {
                 this.setState({
-                    currentTeamTurn: team
+                    currentTeamTurn: team,
+                    currentTeamName: teamName
                 });
 
                 return undefined;
@@ -82,7 +89,9 @@ class PGGame extends React.Component
         }
 
         this.setState({
-            currentTeamTurn: teamIndex
+            currentTeamTurn: teamIndex,
+            currentTeamName: AppManager
+                .gameTeams[teamIndex].data.teamName
         });
     }
 
@@ -109,12 +118,16 @@ class PGGame extends React.Component
         if (this.state.currentTeamTurn < AppManager.gameTeams.length - 1)
         {
             this.setState((state) => ({
+                currentTeamName: AppManager
+                    .gameTeams[state.currentTeamTurn + 1].data.teamName,
                 currentTeamTurn: state.currentTeamTurn + 1
             }));
         }
         else
         {
             this.setState({
+                currentTeamName: AppManager
+                    .gameTeams[0].data.teamName,
                 currentTeamTurn: 0
             });
         }
@@ -206,9 +219,15 @@ class PGGame extends React.Component
     {
         return (
             <div className="game-ctn">
-                <div className="header-ctn"></div>
-                <div className="sub-header-ctn"></div>
-                <div className="password-holder" onClick={this.onCheat}>{this.state.password}</div>
+                <div className="header-ctn">
+                    <h3>Round {this.state.roundCounter + 1}</h3>
+                </div>
+                <div className="sub-header-ctn">
+                    <h3>{this.state.currentTeamName}</h3>
+                </div>
+                <div className="password-holder" onClick={this.onCheat}>
+                    <h2>"{this.state.password}"</h2>
+                </div>
                 <PGButtonCircle 
                     buttonName="Yes" 
                     className="game-btn yes-btn"
