@@ -218,24 +218,26 @@ class PGGame extends React.Component
     render()
     {
         return (
-            <div className="game-ctn">
+            <div className="pg-game-ctn">
                 <div className="header-ctn">
-                    <h3>Round {this.state.roundCounter + 1}</h3>
+                    <h3>ROUND {this.state.roundCounter + 1}</h3>
                 </div>
-                <div className="sub-header-ctn">
-                    <h3>{this.state.currentTeamName}</h3>
+                <div className="pg-password-holder">
+                    <div className="sub-header-ctn">
+                        <h3>{this.state.currentTeamName}</h3>
+                    </div>
+                    <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
                 </div>
-                <div className="password-holder" onClick={this.onCheat}>
-                    <h2>"{this.state.password}"</h2>
+                <div className="pg-game-btn-ctn">
+                    <PGButtonCircle 
+                        buttonName="Yes" 
+                        className="pg-game-btn yes-btn"
+                        onClick={this.nextRound} />
+                    <PGButtonCircle 
+                        buttonName="No" 
+                        className="pg-game-btn no-btn" 
+                        onClick={this.nextTurn} />
                 </div>
-                <PGButtonCircle 
-                    buttonName="Yes" 
-                    className="game-btn yes-btn"
-                    onClick={this.nextRound} />
-                <PGButtonCircle 
-                    buttonName="No" 
-                    className="game-btn no-btn" 
-                    onClick={this.nextTurn} />
             </div>
         );
     }
