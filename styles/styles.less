@@ -2,7 +2,7 @@
 // Imports
 // ---------------------------------
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Oswald&display=swap');
 
 // ---------------------------------
 // Variables
@@ -20,22 +20,28 @@
 @p-font-family : 'Open Sans', sans-serif;
 
 @h1-font-size: 72px;
-@h2-font-size: 40px;
+@h2-font-size: 48px;
+@h3-font-size: 32px;
 @p-font-size: 16px;
+
+@h3-font-weight: 400;
 
 // Input
 @input-font-size: 16px;
 
 @input-width: 100%;
-@input-height: 64px;
-@input-margin-top: 8px;
-@input-margin-bottom: 8px;
+@input-height: 48px;
+@input-margin-top: 16px;
+@input-margin-bottom: 16px;
 
 // Sections
 @section-width-standard: 860px;
 
 // Containers
-@player-input-ctn-width: 480px;
+@ctn-margin-top: 0px;
+@ctn-margin-bottom: 24px;
+
+@player-input-ctn-width: 400px;
 
 // Buttons
 @button-width: 240px;
@@ -51,6 +57,11 @@ h1
     font-size: @h1-font-size;
 
     text-align: @h1-text-align;
+
+    @media screen and (max-width: 1024px)
+    {
+        font-size: @h1-font-size * 2;    
+    }
 }
 
 h2
@@ -64,8 +75,11 @@ h2
 h3
 {
     font-family: @h3-font-family;
+    font-weight: @h3-font-weight;
 
     text-align: @h3-text-align;
+
+    margin: 0;
 }
 
 p
@@ -74,6 +88,11 @@ p
     font-size: @p-font-size;
 
     text-align: @p-text-align;
+
+    @media screen and (max-width: 1024px)
+    {
+        font-size: @p-font-size * 2;
+    }
 }
 
 //  --------------------------------
@@ -88,9 +107,19 @@ section
     margin: auto;
 }
 
+.main-section
+{
+    margin-top: 48px;
+}
+
 //  --------------------------------
 //  Containers
 //  --------------------------------
+
+.pg-team-setup-ctn
+{
+    padding: @ctn-margin-top 0 @ctn-margin-bottom 0;
+}
 
 .pg-player-input-ctn
 {
@@ -101,6 +130,14 @@ section
     margin: @input-margin-top 0 @input-margin-bottom 0;
     margin-left: auto;
     margin-right: auto;
+}
+
+.pg-game-btn-ctn
+{
+    width: 560px;
+
+    display: block;
+    margin: auto;
 }
 
 //  --------------------------------
@@ -129,9 +166,16 @@ input
     width: @button-width;
 
     display: block;
-    margin: 16px 0 16px 0;
+    margin: 24px 0 24px 0;
     margin-left: auto;
     margin-right: auto;
+
+    @media screen and (max-width: 1024px)
+    {
+        width: @button-width * 1.5;
+        margin-top: 32px;
+        margin-bottom: 32px;
+    }
 }
 
 .pg-button, .pg-button--circle
@@ -143,18 +187,35 @@ input
     display: inline-block;
 
     .capsule-border();
+
+    @media screen and (max-width: 1024px)
+    {
+        width: @button-width * 1.5;
+    }
 }
 
 .pg-button--circle
 {
-    @button-margin: (@button-width - @circle-button-width) / 2;
-
     height: @circle-button-width;
     width: @circle-button-width;
 
-    margin: 0 @button-margin 0 @button-margin;
+    display: block;
+
+    margin: 0 auto 0 auto;
 
     .circle-border();
+
+    @media screen and (max-width: 1024px)
+    {
+        height: @circle-button-width * 1.5;
+        width: @circle-button-width * 1.5;
+    }
+}
+
+.pg-game-btn
+{
+    width: 50%;
+    display: inline-block;
 }
 
 // ---------------------------------
@@ -173,6 +234,31 @@ input
 .circle-border
 {
     border-color: #000000;
-    border: 64px 64px 64px 64px;
+    border-radius: 64px 64px 64px 64px;
 }
 
+// ---------------------------------
+// Other
+// ---------------------------------
+
+.pg-game-ctn
+{
+    .header-ctn
+    {
+        h3
+        {
+            font-weight: 700;
+        }
+    }
+}
+
+.pg-password-holder
+{
+    margin-top: 128px;
+    margin-bottom: 128px;
+
+    h2
+    {
+        margin: 0;
+    } 
+}
