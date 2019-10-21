@@ -1,0 +1,63 @@
+// ---------------------------------
+// Variables
+// ---------------------------------
+
+@button-width: 240px;
+@circle-button-width: 64px;
+
+//  --------------------------------
+//  Buttons
+//  --------------------------------
+
+.pg-button-ctn
+{
+    width: @button-width;
+
+    display: block;
+    margin: 16px 0 16px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pg-button, .pg-button--circle
+{
+    width: @button-width;
+
+    background-color: #FFFFFF;
+    text-align: center;
+    display: inline-block;
+
+    .capsule-border();
+}
+
+.pg-button--circle
+{
+    @button-margin: (@button-width - @circle-button-width) / 2;
+
+    height: @circle-button-width;
+    width: @circle-button-width;
+
+    margin: 0 @button-margin 0 @button-margin;
+
+    .circle-border();
+}
+
+// ---------------------------------
+// Mixins
+// ---------------------------------
+
+.capsule-border
+{
+    border-color: #000000;
+    border-top-left-radius: 72px;
+    border-bottom-left-radius: 72px;
+    border-top-right-radius: 72px;
+    border-bottom-right-radius: 72px;
+}
+
+.circle-border
+{
+    border-color: #000000;
+    border: 64px 64px 64px 64px;
+}
+

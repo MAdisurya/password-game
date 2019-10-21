@@ -10,7 +10,7 @@ class PGButton extends React.Component
     render()
     {           
         return (
-            <div className={this.props.className}>
+            <div className={"pg-button-ctn " + this.props.className}>
                 <button className={this.className} onClick={this.props.onClick}>
                     <h1>{this.props.buttonName}</h1>
                 </button>
