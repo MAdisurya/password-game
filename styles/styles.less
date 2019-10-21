@@ -1,9 +1,124 @@
 // ---------------------------------
+// Imports
+// ---------------------------------
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap');
+
+// ---------------------------------
 // Variables
 // ---------------------------------
 
+// Text
+@h1-text-align: center;
+@h2-text-algin: center;
+@h3-text-align: center;
+@p-text-align: center;
+
+@h1-font-family: 'Oswald', sans-serif;
+@h2-font-family: 'Oswald', sans-serif;
+@h3-font-family: 'Open Sans', sans-serif;
+@p-font-family : 'Open Sans', sans-serif;
+
+@h1-font-size: 72px;
+@h2-font-size: 40px;
+@p-font-size: 16px;
+
+// Input
+@input-font-size: 16px;
+
+@input-width: 100%;
+@input-height: 64px;
+@input-margin-top: 8px;
+@input-margin-bottom: 8px;
+
+// Sections
+@section-width-standard: 860px;
+
+// Containers
+@player-input-ctn-width: 480px;
+
+// Buttons
 @button-width: 240px;
 @circle-button-width: 64px;
+
+//  --------------------------------
+//  Fonts
+//  --------------------------------
+
+h1
+{
+    font-family: @h1-font-family;
+    font-size: @h1-font-size;
+
+    text-align: @h1-text-align;
+}
+
+h2
+{
+    font-family: @h2-font-family;
+    font-size: @h2-font-size;
+
+    text-align: @h2-text-algin;
+}
+
+h3
+{
+    font-family: @h3-font-family;
+
+    text-align: @h3-text-align;
+}
+
+p
+{
+    font-family: @p-font-family;
+    font-size: @p-font-size;
+
+    text-align: @p-text-align;
+}
+
+//  --------------------------------
+//  Section
+//  --------------------------------
+
+section
+{
+    width: @section-width-standard;
+
+    display: block;
+    margin: auto;
+}
+
+//  --------------------------------
+//  Containers
+//  --------------------------------
+
+.pg-player-input-ctn
+{
+    width: @player-input-ctn-width;
+
+    display: block;
+
+    margin: @input-margin-top 0 @input-margin-bottom 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//  --------------------------------
+//  Inputs
+//  --------------------------------
+
+input
+{
+    width: @input-width;
+    height: @input-height;
+
+    font-size: @p-font-size;
+    text-align: @p-text-align;
+
+    margin: @input-margin-top 0 @input-margin-bottom 0;
+
+    .capsule-border();
+}
 
 //  --------------------------------
 //  Buttons
