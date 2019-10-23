@@ -5,9 +5,12 @@ class PGGame extends React.Component
         super(props);
 
         this.maxPoints = 6;
+        this.maxRounds = 5;
         this.penaltyPoints = -4;
 
         this.passwordList = new PGPasswordList();
+
+        this.gameOverElement = undefined;
 
         this.state = {
             roundCounter: 0,
@@ -26,6 +29,7 @@ class PGGame extends React.Component
         this.onCheat = this.onCheat.bind(this);
         this.resetProps = this.resetProps.bind(this);
         this.resetGame = this.resetGame.bind(this);
+        this.endGame = this.endGame.bind(this);
     }
 
     componentDidMount()
@@ -142,13 +146,18 @@ class PGGame extends React.Component
             roundCounter: state.roundCounter + 1,
             failedAttempts: 0
         }));
-
+        
         this.awardPoints(this.state.currentTeamTurn);
         this.nextTeamTurn();
         this.setRandomPassword();
 
         console.log("nextRound method invoked:");
         console.log(AppManager.gameTeams);
+
+        if (this.state.roundCounter >= this.maxRounds - 1)
+        {
+            this.endGame();
+        }
     }
 
     /**
@@ -215,30 +224,53 @@ class PGGame extends React.Component
         this.setRandomPassword();
     }
 
+    endGame()
+    {
+        console.log("endGame method invoked");
+
+        this.resetGame();
+
+        // Sort gameTeams here
+
+        // TODO: Need to replace this
+        this.gameOverElement = <PGGameOver />;
+
+        this.forceUpdate();
+
+        document.getElementById('pg-game-ctn').style.display = "none";
+        document.getElementById('pg-game-over').style.display = "block";
+    }
+
     render()
     {
         return (
-            <div className="pg-game-ctn">
-                <div className="header-ctn">
-                    <h3>ROUND {this.state.roundCounter + 1}</h3>
-                </div>
-                <div className="pg-password-holder">
-                    <div className="sub-header-ctn">
-                        <h3>{this.state.currentTeamName}</h3>
+            <section id="pg-game" style={{display: 'none'}}>
+                <div id="pg-game-ctn" className="pg-game-ctn">
+                    <div className="header-ctn">
+                        <h3>ROUND {this.state.roundCounter + 1}</h3>
                     </div>
-                    <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
+                    <div className="pg-password-holder">
+                        <div className="sub-header-ctn">
+                            <h3>{this.state.currentTeamName}</h3>
+                        </div>
+                        <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
+                    </div>
+                    <div className="pg-game-btn-ctn">
+                        <PGButtonCircle 
+                            buttonName="Yes" 
+                            className="pg-game-btn yes-btn"
+                            onClick={this.nextRound} />
+                        <PGButtonCircle 
+                            buttonName="No" 
+                            className="pg-game-btn no-btn" 
+                            onClick={this.nextTurn} />
+                    </div>
                 </div>
-                <div className="pg-game-btn-ctn">
-                    <PGButtonCircle 
-                        buttonName="Yes" 
-                        className="pg-game-btn yes-btn"
-                        onClick={this.nextRound} />
-                    <PGButtonCircle 
-                        buttonName="No" 
-                        className="pg-game-btn no-btn" 
-                        onClick={this.nextTurn} />
+                
+                <div id="pg-game-over" style={{display: 'none'}}>
+                    {this.gameOverElement}
                 </div>
-            </div>
+            </section>
         );
     }
 }

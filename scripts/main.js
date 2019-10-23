@@ -1,6 +1,6 @@
 class AppManager
 {
-    static gameTeams = []
+    static gameTeams = [];
 
     /**
      * Registers a PGTeam into the static AppManager.gameTeams array
@@ -53,9 +53,11 @@ class App extends React.Component
                     />
                 </section>
 
-                <section id="pg-game" style={{display: 'none'}}>
-                    <PGGame />
-                </section>
+                <PGGame />
+
+                {/* <section id="pg-game-over" style={{display: 'none'}}>
+                    <PGGameOver />
+                </section> */}
             </section>
         )
     }
