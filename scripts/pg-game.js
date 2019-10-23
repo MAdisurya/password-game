@@ -231,12 +231,14 @@ class PGGame extends React.Component
         this.resetGame();
 
         // Sort gameTeams here
+        AppManager.gameTeams = 
+            AppManager.reverseMergeSortTeams(AppManager.gameTeams);
 
-        // TODO: Need to replace this
         this.gameOverElement = <PGGameOver />;
 
         this.forceUpdate();
 
+        // TODO: Need to replace this
         document.getElementById('pg-game-ctn').style.display = "none";
         document.getElementById('pg-game-over').style.display = "block";
     }

@@ -10,6 +10,66 @@ class AppManager
     {
         this.gameTeams.push(team);
     }
+
+    /**
+     * Reverse merge sort method that takes in teams array,
+     * applies divide and conquer algorithm, and returns the teams array
+     * in descending order (largest first)
+     * @param {*} teamsArray - an array of teams
+     */
+    static reverseMergeSortTeams(teamsArray)
+    {
+        if (teamsArray.length <= 1)
+        {
+            return teamsArray;
+        }
+
+        const middle = Math.floor(teamsArray.length / 2);
+
+        const left = teamsArray.slice(0, middle);
+        const right = teamsArray.slice(middle);
+
+        return this.reverseMergeTeams(
+            this.reverseMergeSortTeams(left), 
+            this.reverseMergeSortTeams(right)
+        );
+    }
+
+    /**
+     * Reverse merge method that merges two team arrays
+     * in descending order (largest first)
+     * based on the teams points
+     * @param {*} left - the left team array
+     * @param {*} right - the right team array
+     */
+    static reverseMergeTeams(left, right)
+    {
+        var resultArray = [];
+        var leftIndex = 0;
+        var rightIndex = 0;
+
+        while (leftIndex < left.length && rightIndex < right.length)
+        {
+            if (left[leftIndex].data.points > right[rightIndex].data.points)
+            {
+                resultArray.push(left[leftIndex]);
+
+                leftIndex += 1;
+            }
+            else
+            {
+                resultArray.push(right[rightIndex]);
+
+                rightIndex += 1;
+            }
+        }
+
+        // Need to concat becuase there will be one element
+        // remaining from either left OR right arrays
+        return resultArray
+            .concat(left.slice(leftIndex))
+            .concat(right.slice(rightIndex));
+    }
 }
 
 class App extends React.Component
@@ -54,10 +114,6 @@ class App extends React.Component
                 </section>
 
                 <PGGame />
-
-                {/* <section id="pg-game-over" style={{display: 'none'}}>
-                    <PGGameOver />
-                </section> */}
             </section>
         )
     }
