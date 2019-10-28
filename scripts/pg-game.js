@@ -17,7 +17,8 @@ class PGGame extends React.Component
             failedAttempts: 0,
             password: "",
             currentTeamTurn: 0,
-            currentTeamName: ""
+            currentTeamName: "",
+            currentPlayerTurn: ""
         };
 
         this.setRandomPassword = this.setRandomPassword.bind(this);
@@ -124,7 +125,9 @@ class PGGame extends React.Component
             this.setState((state) => ({
                 currentTeamName: AppManager
                     .gameTeams[state.currentTeamTurn + 1].data.teamName,
-                currentTeamTurn: state.currentTeamTurn + 1
+                currentTeamTurn: state.currentTeamTurn + 1,
+                currentPlayerTurn: AppManager
+                    .gameTeams[state.currentTeamTurn + 1].data.currentPlayerTurn
             }));
         }
         else
@@ -132,7 +135,9 @@ class PGGame extends React.Component
             this.setState({
                 currentTeamName: AppManager
                     .gameTeams[0].data.teamName,
-                currentTeamTurn: 0
+                currentTeamTurn: 0,
+                currentPlayerTurn: AppManager
+                    .gameTeams[0].data.currentPlayerTurn
             });
         }
     }
@@ -147,6 +152,11 @@ class PGGame extends React.Component
             failedAttempts: 0
         }));
         
+        for (var i = 0; i < AppManager.gameTeams.length; i++)
+        {
+            AppManager.gameTeams[i].nextPlayerTurn();
+        }
+
         this.awardPoints(this.state.currentTeamTurn);
         this.nextTeamTurn();
         this.setRandomPassword();
@@ -253,7 +263,9 @@ class PGGame extends React.Component
                     </div>
                     <div className="pg-password-holder">
                         <div className="sub-header-ctn">
-                            <h3>{this.state.currentTeamName}</h3>
+                            <h3>
+                                {this.state.currentTeamName}: {this.state.currentPlayerTurn}
+                            </h3>
                         </div>
                         <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
                     </div>

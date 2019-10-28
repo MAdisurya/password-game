@@ -5,8 +5,32 @@ class PGTeam
         this.data = {
             teamName: "",
             points: 0,
-            players: []
+            players: [],
+            currentPlayerTurn: ""
         };
+
+        this.currentPlayerIndex = 0;
+
+        this.nextPlayerTurn = this.nextPlayerTurn.bind(this);
+    }
+
+    /**
+     * Increments currentPlayerIndex and assigns the next player 
+     * in players array to currentPlayerTurn
+     */
+    nextPlayerTurn()
+    {
+        if (this.currentPlayerIndex < this.data.players.length - 1)
+        {
+            this.currentPlayerIndex += 1;
+        }
+        else
+        {
+            this.currentPlayerIndex = 0;
+        }
+
+        this.data.currentPlayerTurn = 
+            this.data.players[this.currentPlayerIndex].data.playerName;
     }
 }
 
