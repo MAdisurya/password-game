@@ -45,6 +45,7 @@
 
 // Buttons
 @button-width: 240px;
+@small-button-width: 160px;
 @circle-button-width: 64px;
 
 //  --------------------------------
@@ -175,6 +176,36 @@ input
         width: @button-width * 1.5;
         margin-top: 32px;
         margin-bottom: 32px;
+    }
+}
+
+.pg-small-btn-ctn
+{
+    width: @small-button-width;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    @media screen and (max-width: 1024px) 
+    {
+        width: @small-button-width * 1.5;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    .pg-button
+    {
+        width: @small-button-width;
+
+        @media screen and (max-width: 1024px)
+        {
+            width: @small-button-width * 1.5;
+        }
+
+        p
+        {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
     }
 }
 
