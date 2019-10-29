@@ -270,6 +270,10 @@ class PGGame extends React.Component
                             </h3>
                         </div>
                         <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
+                        <PGButton
+                            buttonName="New Password"
+                            className="new-password-btn"
+                            onClick={this.setRandomPassword} />
                     </div>
                     <div className="pg-game-btn-ctn">
                         <PGButtonCircle 
