@@ -39,7 +39,9 @@ class PGGame extends React.Component
 
         this.setState({
             currentTeamName: AppManager
-                .gameTeams[this.state.currentTeamTurn].data.teamName
+                .gameTeams[this.state.currentTeamTurn].data.teamName,
+            currentPlayerTurn: AppManager
+                .gameTeams[this.state.currentTeamTurn].data.currentPlayerTurn
         });
     }
 

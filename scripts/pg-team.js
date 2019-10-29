@@ -76,7 +76,8 @@ class PGTeamSetup extends React.Component
      */
     updatePlayerName(name, index)
     {
-        this.newTeam.data.players[index].playerName = name;
+        this.newTeam.data.players[index].data.playerName = name;
+        this.newTeam.data.currentPlayerTurn = name;
     }
 
     /**
@@ -101,6 +102,14 @@ class PGTeamSetup extends React.Component
                 newPlayer.data.playerName = 
                     `Player ${playerIndex + 1}`
             }
+        }
+
+        // Assign newTeam.currentPlayerTurn 
+        // only if players array is empty
+        if (this.newTeam.data.players.length < 1)
+        {
+            this.newTeam.data.currentPlayerTurn = 
+                newPlayer.data.playerName;
         }
 
         this.newTeam.data.players.push(newPlayer);
