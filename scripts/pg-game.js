@@ -145,6 +145,28 @@ class PGGame extends React.Component
     }
 
     /**
+     * Starts the game round
+     */
+    startRound()
+    {
+        document.getElementById("new-password-btn").style.visibility = "hidden";
+        document.getElementById("pg-game-sub-header-ctn").style.visibility = "visible";
+        document.getElementById("pg-game-btn-wrapper")
+            .classList.add("slide-horizontal-end");
+    }
+
+    /**
+     * Ends the game round
+     */
+    endRound()
+    {
+        document.getElementById("new-password-btn").style.visibility = "visible";
+        document.getElementById("pg-game-sub-header-ctn").style.visibility = "hidden";
+        document.getElementById("pg-game-btn-wrapper")
+            .classList.remove("slide-horizontal-end");
+    }
+
+    /**
      * Cycles through to the next round of the game
      */
     nextRound()
@@ -162,6 +184,7 @@ class PGGame extends React.Component
         this.awardPoints(this.state.currentTeamTurn);
         this.nextTeamTurn();
         this.setRandomPassword();
+        this.endRound();
 
         console.log("nextRound method invoked:");
         console.log(AppManager.gameTeams);
@@ -263,7 +286,7 @@ class PGGame extends React.Component
                         <h3>ROUND {this.state.roundCounter + 1}</h3>
                     </div>
                     <div className="pg-password-holder">
-                        <div className="sub-header-ctn">
+                        <div id="pg-game-sub-header-ctn" className="sub-header-ctn">
                             <h3>
                                 {this.state.currentTeamName}: {this.state.currentPlayerTurn}
                             </h3>
@@ -271,18 +294,31 @@ class PGGame extends React.Component
                         <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
                         <PGButton
                             buttonName="New Password"
+                            id="new-password-btn"
                             className="pg-small-btn-ctn new-password-btn"
                             onClick={this.setRandomPassword} />
                     </div>
-                    <div className="pg-game-btn-ctn">
-                        <PGButtonCircle 
-                            buttonName="Yes" 
-                            className="pg-game-btn yes-btn"
-                            onClick={this.nextRound} />
-                        <PGButtonCircle 
-                            buttonName="No" 
-                            className="pg-game-btn no-btn" 
-                            onClick={this.nextTurn} />
+                    <div id="pg-game-btn-wrapper" className="pg-game-btn-wrapper slide-horizontal-start">
+                        <div className="pg-game-btn-ctn-outer">
+                            <div className="pg-button-ctn">
+                                <PGButton
+                                    buttonName="Start"
+                                    className="start-btn"
+                                    onClick={this.startRound} />
+                            </div>
+                        </div>
+                        <div className="pg-game-btn-ctn-outer">
+                            <div className="pg-game-btn-ctn">
+                                <PGButtonCircle 
+                                    buttonName="Yes" 
+                                    className="pg-game-btn yes-btn"
+                                    onClick={this.nextRound} />
+                                <PGButtonCircle 
+                                    buttonName="No" 
+                                    className="pg-game-btn no-btn" 
+                                    onClick={this.nextTurn} />
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
