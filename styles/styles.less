@@ -102,6 +102,9 @@ p
 
 section
 {
+    position: relative;
+    overflow: hidden;
+
     width: @section-width-standard;
 
     display: block;
@@ -110,6 +113,7 @@ section
 
 .main-section
 {
+    min-height: 640px;
     margin-top: 48px;
 }
 
@@ -250,6 +254,28 @@ input
 }
 
 // ---------------------------------
+// Animations
+// ---------------------------------
+
+.fade-transition
+{
+    top: 400px;
+    max-height: 0;
+    opacity: 0;
+
+    .one-prop-transition(all, 0.75s, ease);
+}
+
+.fade-transition-show
+{
+    top: 0px;
+    max-height: 1500px;
+    opacity: 1;
+
+    .transition-delay(1s);
+}
+
+// ---------------------------------
 // Mixins
 // ---------------------------------
 
@@ -269,10 +295,35 @@ input
 }
 
 // ---------------------------------
+// Transition Mixins
+// ---------------------------------
+
+.one-prop-transition(@prop, @seconds, @ease)
+{
+    transition: @prop @seconds @ease;
+    -webkit-transition: @prop @seconds @ease;
+    -moz-transition: @prop @seconds @ease;
+}
+
+.two-prop-transition(@prop1, @prop2, @seconds, @ease)
+{
+    transition: @prop1 @seconds @ease, @prop2 @seconds @ease;
+    -webkit-transition: @prop1 @seconds @ease, @prop2 @seconds @ease;
+    -moz-transition: @prop1 @seconds @ease, @prop2 @seconds @ease;
+}
+
+.transition-delay(@seconds)
+{
+    transition-delay: @seconds;
+    -webkit-transition-delay: @seconds;
+    -moz-transition-delay: @seconds;
+}
+
+// ---------------------------------
 // Other
 // ---------------------------------
 
-.pg-game-ctn
+#pg-game-ctn
 {
     .header-ctn
     {

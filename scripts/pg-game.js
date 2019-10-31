@@ -250,16 +250,15 @@ class PGGame extends React.Component
 
         this.forceUpdate();
 
-        // TODO: Need to replace this
-        document.getElementById('pg-game-ctn').style.display = "none";
-        document.getElementById('pg-game-over').style.display = "block";
+        document.getElementById('pg-game-ctn').classList.remove("fade-transition-show");
+        document.getElementById('pg-game-over').classList.add("fade-transition-show");
     }
 
     render()
     {
         return (
-            <section id="pg-game" style={{display: 'none'}}>
-                <div id="pg-game-ctn" className="pg-game-ctn">
+            <section id="pg-game" className="fade-transition">
+                <section id="pg-game-ctn" className="fade-transition fade-transition-show">
                     <div className="header-ctn">
                         <h3>ROUND {this.state.roundCounter + 1}</h3>
                     </div>
@@ -285,11 +284,11 @@ class PGGame extends React.Component
                             className="pg-game-btn no-btn" 
                             onClick={this.nextTurn} />
                     </div>
-                </div>
+                </section>
                 
-                <div id="pg-game-over" style={{display: 'none'}}>
+                <section id="pg-game-over" className="fade-transition">
                     {this.gameOverElement}
-                </div>
+                </section>
             </section>
         );
     }

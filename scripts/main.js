@@ -78,7 +78,7 @@ class App extends React.Component
     {
         return (
             <section className="main-section">
-                <section id="pg-menu">
+                <section id="pg-menu" className="fade-transition fade-transition-show">
                     <h1 className="main-title">PASSWORD</h1>
 
                     <PGButton 
@@ -86,15 +86,17 @@ class App extends React.Component
                         className="play-btn"
                         onClick={() => {
                             // Need to replace this with CSS / Less when implemented
-                            document.getElementById('pg-menu').style.display = 'none';
-                            document.getElementById('pg-team-setup').style.display = 'block';
+                            document.getElementById('pg-menu')
+                                .classList.remove("fade-transition-show");
+                            document.getElementById('pg-team-setup')
+                                .classList.add("fade-transition-show");
                         }} 
                     />
                     <PGButton buttonName="Rules" className="rules-btn" />
                     <PGButton buttonName="Credits" className="credits-btn" />
                 </section>
 
-                <section id="pg-team-setup" style={{display: 'none'}}>
+                <section id="pg-team-setup" className="fade-transition">
                     <div className="team-one-setup-ctn">
                         <PGTeamSetup teamName="TEAM ONE" />
                     </div>
@@ -106,9 +108,10 @@ class App extends React.Component
                         buttonName="Start" 
                         className="start-btn"
                         onClick = {() => {
-                            // Need to replace with CSS / Less when implemeneted
-                            document.getElementById('pg-team-setup').style.display = 'none';
-                            document.getElementById('pg-game').style.display = 'block';
+                            document.getElementById('pg-team-setup')
+                                .classList.remove("fade-transition-show");
+                            document.getElementById('pg-game')
+                                .classList.add("fade-transition-show");
                         }} 
                     />
                 </section>
