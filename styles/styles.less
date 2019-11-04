@@ -72,7 +72,7 @@
     color: @d-secondary-color;
     background-color: @d-primary-color;
 
-    .two-prop-transition(background-color, color, 1s, ease-out);
+    .two-prop-transition(background-color, color, 0.75s, ease);
 }
 
 #pg-app.p1-color
@@ -112,6 +112,16 @@ h2
     text-align: @h2-text-algin;
 }
 
+h2.p1-color
+{
+    color: @p1-primary-color;
+}
+
+h2.p2-color
+{
+    color: @p2-primary-color;
+}
+
 h3
 {
     font-family: @h3-font-family;
@@ -133,13 +143,6 @@ p
     {
         font-size: @p-font-size * 2;
     }
-}
-
-p.p1-color
-{
-    color: @p1-accent-color;
-
-    .one-prop-transition(all, 1s, linear);
 }
 
 //  --------------------------------
@@ -315,7 +318,7 @@ input
     max-height: 0;
     opacity: 0;
 
-    .three-prop-transition(top, max-height, opacity, 0.4s, ease-out);
+    .three-prop-transition(top, max-height, opacity, 0.4s, ease);
 }
 
 .fade-transition-show
@@ -334,7 +337,7 @@ input
     left: 0px;
     width: @section-width-standard * 2;
 
-    .one-prop-transition(left, 0.4s, ease-out);
+    .one-prop-transition(left, 0.4s, ease);
 }
 
 .slide-horizontal-end
