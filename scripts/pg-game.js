@@ -18,13 +18,14 @@ class PGGame extends React.Component
             password: "",
             currentTeamTurn: 0,
             currentTeamName: "",
-            currentPlayerTurn: ""
+            currentPlayerTurn: "",
         };
 
         this.setRandomPassword = this.setRandomPassword.bind(this);
         this.setCurrentTeamTurn = this.setCurrentTeamTurn.bind(this);
         this.awardPoints = this.awardPoints.bind(this);
         this.nextTeamTurn = this.nextTeamTurn.bind(this);
+        this.startRound = this.startRound.bind(this);
         this.nextRound = this.nextRound.bind(this);
         this.nextTurn = this.nextTurn.bind(this);
         this.onCheat = this.onCheat.bind(this);
@@ -131,6 +132,11 @@ class PGGame extends React.Component
                 currentPlayerTurn: AppManager
                     .gameTeams[state.currentTeamTurn + 1].data.currentPlayerTurn
             }));
+
+            // Change color scheme
+            // Need to increment by 2 because state hasn't 
+            // been updated at this point in runtime
+            AppManager.changeColorScheme(`p${this.state.currentTeamTurn + 2}-color`);
         }
         else
         {
@@ -141,6 +147,9 @@ class PGGame extends React.Component
                 currentPlayerTurn: AppManager
                     .gameTeams[0].data.currentPlayerTurn
             });
+
+            // Change color scheme
+            AppManager.changeColorScheme(`p1-color`);
         }
     }
 
@@ -149,10 +158,14 @@ class PGGame extends React.Component
      */
     startRound()
     {
+        // Need to replace - change text of game subheader instead of hiding/unhiding
         document.getElementById("new-password-btn").style.visibility = "hidden";
-        document.getElementById("pg-game-sub-header-ctn").style.visibility = "visible";
+        document.getElementById("pg-game-sub-header").style.visibility = "visible";
         document.getElementById("pg-game-btn-wrapper")
             .classList.add("slide-horizontal-end");
+
+        // Change color scheme to current team color
+        AppManager.changeColorScheme(`p${this.state.currentTeamTurn + 1}-color`);
     }
 
     /**
@@ -160,10 +173,14 @@ class PGGame extends React.Component
      */
     endRound()
     {
+        // Need to replace - change text of game subheader instead of hiding/unhiding
         document.getElementById("new-password-btn").style.visibility = "visible";
-        document.getElementById("pg-game-sub-header-ctn").style.visibility = "hidden";
+        document.getElementById("pg-game-sub-header").style.visibility = "hidden";
         document.getElementById("pg-game-btn-wrapper")
             .classList.remove("slide-horizontal-end");
+
+        // Change color scheme to default
+        AppManager.defaultColorScheme();
     }
 
     /**
@@ -287,7 +304,7 @@ class PGGame extends React.Component
                     </div>
                     <div className="pg-password-holder">
                         <div id="pg-game-sub-header-ctn" className="sub-header-ctn">
-                            <h3>
+                            <h3 id="pg-game-sub-header">
                                 {this.state.currentTeamName}: {this.state.currentPlayerTurn}
                             </h3>
                         </div>
