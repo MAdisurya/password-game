@@ -70,6 +70,26 @@ class AppManager
             .concat(left.slice(leftIndex))
             .concat(right.slice(rightIndex));
     }
+
+    /**
+     * Change the current color palette of the app
+     * @param {*} color - (string) the color palette to change to e.g. "p1", "p2"
+     */
+    static changeColorScheme(color)
+    {
+        // App
+        document.getElementById("pg-app").className = "";
+        document.getElementById("pg-app").classList.add(color);
+    }
+
+    /**
+     * Change current color scheme back to default
+     */
+    static defaultColorScheme()
+    {
+        // App
+        document.getElementById("pg-app").className = "";
+    }
 }
 
 class App extends React.Component
