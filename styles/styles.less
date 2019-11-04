@@ -26,6 +26,16 @@
 
 @h3-font-weight: 400;
 
+// Colors
+@d-primary-color: #FFF;
+@d-secondary-color: #000;
+
+@p1-primary-color: #1E88E5;
+@p1-accent-color: #F6F7EB;
+
+@p2-primary-color: #E94F37;
+@p2-accent-color: #F6F7EB;
+
 // Input
 @input-font-size: 16px;
 
@@ -47,6 +57,35 @@
 @button-width: 240px;
 @small-button-width: 160px;
 @circle-button-width: 64px;
+
+//  --------------------------------
+//  App
+//  --------------------------------
+
+#pg-app
+{
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    color: @d-secondary-color;
+    background-color: @d-primary-color;
+
+    .two-prop-transition(background-color, color, 1s, ease-out);
+}
+
+#pg-app.p1-color
+{
+    color: @p1-accent-color;
+    background-color: @p1-primary-color;
+}
+
+#pg-app.p2-color
+{
+    color: @p2-accent-color;
+    background-color: @p2-primary-color;
+}
 
 //  --------------------------------
 //  Fonts
@@ -96,6 +135,13 @@ p
     }
 }
 
+p.p1-color
+{
+    color: @p1-accent-color;
+
+    .one-prop-transition(all, 1s, linear);
+}
+
 //  --------------------------------
 //  Section
 //  --------------------------------
@@ -114,7 +160,7 @@ section
 .main-section
 {
     min-height: 640px;
-    margin-top: 48px;
+    padding-top: 48px;
 }
 
 //  --------------------------------
@@ -223,7 +269,7 @@ input
 {
     width: @button-width;
 
-    background-color: #FFFFFF;
+    background-color: @d-primary-color;
     text-align: center;
     display: inline-block;
 
@@ -269,7 +315,7 @@ input
     max-height: 0;
     opacity: 0;
 
-    .one-prop-transition(all, 0.4s, ease-out);
+    .three-prop-transition(top, max-height, opacity, 0.4s, ease-out);
 }
 
 .fade-transition-show
@@ -333,6 +379,13 @@ input
     -moz-transition: @prop1 @seconds @ease, @prop2 @seconds @ease;
 }
 
+.three-prop-transition(@prop1, @prop2, @prop3, @seconds, @ease)
+{
+    transition: @prop1 @seconds @ease, @prop2 @seconds @ease, @prop3 @seconds, @ease;
+    -webkit-transition: @prop1 @seconds @ease, @prop2 @seconds @ease, @prop3 @seconds @ease;
+    -moz-transition: @prop1 @seconds @ease, @prop2 @seconds @ease, @prop3 @seconds @ease;
+}
+
 .transition-delay(@seconds)
 {
     transition-delay: @seconds;
@@ -343,6 +396,11 @@ input
 // ---------------------------------
 // Other
 // ---------------------------------
+
+body
+{
+    margin: 0;
+}
 
 #pg-game-ctn
 {
