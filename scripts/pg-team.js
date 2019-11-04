@@ -3,6 +3,7 @@ class PGTeam
     constructor()
     {
         this.data = {
+            teamIndex: 0,
             teamName: "",
             points: 0,
             players: [],
@@ -67,6 +68,8 @@ class PGTeamSetup extends React.Component
             console.log("Failed to re-assign PGTeamSetup.newTeam to AppManager.gameTeam at given index");
             console.log("Error code: " + err);
         }
+
+        this.newTeam.data.teamIndex = AppManager.gameTeams.length - 1;
     }
 
     /**
@@ -132,7 +135,9 @@ class PGTeamSetup extends React.Component
     {   
         return (
             <div className="pg-team-setup-ctn">
-                <h2>{this.props.teamName}</h2>
+                <h2 className={"p" + (this.newTeam.data.teamIndex+1) + "-color"}>
+                    {this.props.teamName}
+                </h2>
                 <form>
                     {this.newTeam.data.players.map((playerItem, index) => (
                         <div key={playerItem.data.playerName} className="pg-player-input-ctn">
