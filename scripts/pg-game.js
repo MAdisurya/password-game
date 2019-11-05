@@ -17,6 +17,7 @@ class PGGame extends PGScene
             currentTeamTurn: 0,
             currentTeamName: "",
             currentPlayerTurn: "",
+            passwordGivers: []
         };
 
         this.setRandomPassword = this.setRandomPassword.bind(this);
@@ -42,6 +43,42 @@ class PGGame extends PGScene
             currentPlayerTurn: AppManager
                 .gameTeams[this.state.currentTeamTurn].data.currentPlayerTurn
         });
+    }
+
+    sceneDidLoad()
+    {
+        super.sceneDidLoad();
+
+        this.setState((state) => ({
+            passwordGivers: this.getPasswordGivers(state.currentTeamTurn)
+        }));
+
+        console.log(this.getPasswordGivers(this.state.currentTeamTurn));
+    }
+
+    /**
+     * Returns the password givers for the specified turn
+     * @param {*} turnIndex - (Number) the turn index
+     */
+    getPasswordGivers(turnIndex)
+    {
+        var playerNames = [];
+
+        try
+        {
+            for (var i = 0; i < AppManager.gameTeams.length; i++)
+            {
+                var team = AppManager.gameTeams[i];
+                
+                playerNames.push(team.data.players[0].data.playerName);
+            }
+        }
+        catch (err)
+        {
+            console.log(`getPasswordGivers(): ${err}`);
+        }
+
+        return playerNames;
     }
 
     /**
@@ -202,7 +239,6 @@ class PGGame extends PGScene
         this.endRound();
 
         console.log("nextRound method invoked:");
-        console.log(AppManager.gameTeams);
 
         if (this.state.roundCounter >= this.maxRounds - 1)
         {
@@ -245,7 +281,6 @@ class PGGame extends PGScene
         this.setRandomPassword();
 
         console.log("onCheat method invoked:");
-        console.log(AppManager.gameTeams);
     }
 
     /**
@@ -292,7 +327,6 @@ class PGGame extends PGScene
     render()
     {
         return (
-
             <section id={this.props.sceneName} className="fade-transition">
                 <div className="header-ctn">
                     <h3>ROUND {this.state.roundCounter + 1}</h3>
