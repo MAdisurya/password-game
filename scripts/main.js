@@ -98,45 +98,21 @@ class App extends React.Component
     {
         return (
             <section className="main-section">
-                <section id="pg-menu" className="fade-transition fade-transition-show">
-                    <h1 className="main-title">PASSWORD</h1>
+                <PGMenu 
+                    sceneName="pg-menu"
+                />
 
-                    <PGButton 
-                        buttonName="Play" 
-                        className="play-btn"
-                        onClick={() => {
-                            // Need to replace this with CSS / Less when implemented
-                            document.getElementById('pg-menu')
-                                .classList.remove("fade-transition-show");
-                            document.getElementById('pg-team-setup')
-                                .classList.add("fade-transition-show");
-                        }} 
-                    />
-                    <PGButton buttonName="Rules" className="rules-btn" />
-                    <PGButton buttonName="Credits" className="credits-btn" />
-                </section>
+                <PGTeamSetupScene 
+                    sceneName="pg-team-setup"
+                />
 
-                <section id="pg-team-setup" className="fade-transition">
-                    <div className="team-one-setup-ctn">
-                        <PGTeamSetup teamName="TEAM ONE" />
-                    </div>
-                    <div className="team-two-setup-ctn">
-                        <PGTeamSetup teamName="TEAM TWO" />
-                    </div>
+                <PGGame 
+                    sceneName="pg-game"
+                />
 
-                    <PGButton 
-                        buttonName="Start" 
-                        className="start-btn"
-                        onClick = {() => {
-                            document.getElementById('pg-team-setup')
-                                .classList.remove("fade-transition-show");
-                            document.getElementById('pg-game')
-                                .classList.add("fade-transition-show");
-                        }} 
-                    />
-                </section>
-
-                <PGGame />
+                <PGGameOver
+                    sceneName="pg-game-over"
+                />
             </section>
         )
     }

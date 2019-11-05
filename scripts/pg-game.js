@@ -1,4 +1,4 @@
-class PGGame extends React.Component
+class PGGame extends PGScene
 {
     constructor(props)
     {
@@ -9,8 +9,6 @@ class PGGame extends React.Component
         this.penaltyPoints = -4;
 
         this.passwordList = new PGPasswordList();
-
-        this.gameOverElement = undefined;
 
         this.state = {
             roundCounter: 0,
@@ -286,62 +284,54 @@ class PGGame extends React.Component
         AppManager.gameTeams = 
             AppManager.reverseMergeSortTeams(AppManager.gameTeams);
 
-        this.gameOverElement = <PGGameOver />;
-
         this.forceUpdate();
 
-        document.getElementById('pg-game-ctn').classList.remove("fade-transition-show");
-        document.getElementById('pg-game-over').classList.add("fade-transition-show");
+        PGSceneManager.goToScene("pg-game-over");
     }
 
     render()
     {
         return (
-            <section id="pg-game" className="fade-transition">
-                <section id="pg-game-ctn" className="fade-transition fade-transition-show">
-                    <div className="header-ctn">
-                        <h3>ROUND {this.state.roundCounter + 1}</h3>
+
+            <section id={this.props.sceneName} className="fade-transition">
+                <div className="header-ctn">
+                    <h3>ROUND {this.state.roundCounter + 1}</h3>
+                </div>
+                <div className="pg-password-holder">
+                    <div id="pg-game-sub-header-ctn" className="sub-header-ctn">
+                        <h3 id="pg-game-sub-header">
+                            {this.state.currentTeamName}: {this.state.currentPlayerTurn}
+                        </h3>
                     </div>
-                    <div className="pg-password-holder">
-                        <div id="pg-game-sub-header-ctn" className="sub-header-ctn">
-                            <h3 id="pg-game-sub-header">
-                                {this.state.currentTeamName}: {this.state.currentPlayerTurn}
-                            </h3>
-                        </div>
-                        <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
-                        <PGButton
-                            buttonName="New Password"
-                            id="new-password-btn"
-                            className="pg-small-btn-ctn new-password-btn"
-                            onClick={this.setRandomPassword} />
-                    </div>
-                    <div id="pg-game-btn-wrapper" className="pg-game-btn-wrapper slide-horizontal-start">
-                        <div className="pg-game-btn-ctn-outer">
-                            <div className="pg-button-ctn">
-                                <PGButton
-                                    buttonName="Start"
-                                    className="start-btn"
-                                    onClick={this.startRound} />
-                            </div>
-                        </div>
-                        <div className="pg-game-btn-ctn-outer">
-                            <div className="pg-game-btn-ctn">
-                                <PGButtonCircle 
-                                    buttonName="Yes" 
-                                    className="pg-game-btn yes-btn"
-                                    onClick={this.nextRound} />
-                                <PGButtonCircle 
-                                    buttonName="No" 
-                                    className="pg-game-btn no-btn" 
-                                    onClick={this.nextTurn} />
-                            </div>
+                    <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
+                    <PGButton
+                        buttonName="New Password"
+                        id="new-password-btn"
+                        className="pg-small-btn-ctn new-password-btn"
+                        onClick={this.setRandomPassword} />
+                </div>
+                <div id="pg-game-btn-wrapper" className="pg-game-btn-wrapper slide-horizontal-start">
+                    <div className="pg-game-btn-ctn-outer">
+                        <div className="pg-button-ctn">
+                            <PGButton
+                                buttonName="Start"
+                                className="start-btn"
+                                onClick={this.startRound} />
                         </div>
                     </div>
-                </section>
-                
-                <section id="pg-game-over" className="fade-transition">
-                    {this.gameOverElement}
-                </section>
+                    <div className="pg-game-btn-ctn-outer">
+                        <div className="pg-game-btn-ctn">
+                            <PGButtonCircle 
+                                buttonName="Yes" 
+                                className="pg-game-btn yes-btn"
+                                onClick={this.nextRound} />
+                            <PGButtonCircle 
+                                buttonName="No" 
+                                className="pg-game-btn no-btn" 
+                                onClick={this.nextTurn} />
+                        </div>
+                    </div>
+                </div>
             </section>
         );
     }

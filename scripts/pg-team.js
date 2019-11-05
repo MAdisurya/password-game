@@ -161,3 +161,28 @@ class PGTeamSetup extends React.Component
         );
     }
 }
+
+class PGTeamSetupScene extends PGScene
+{
+    render()
+    {
+        return (
+            <section id={this.props.sceneName} className="fade-transition">
+                <div className="team-one-setup-ctn">
+                    <PGTeamSetup teamName="TEAM ONE" />
+                </div>
+                <div className="team-two-setup-ctn">
+                    <PGTeamSetup teamName="TEAM TWO" />
+                </div>
+
+                <PGButton 
+                    buttonName="Start" 
+                    className="start-btn"
+                    onClick = {() => {
+                        PGSceneManager.goToScene("pg-game");
+                    }} 
+                />
+            </section>
+        );
+    }
+}
