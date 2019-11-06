@@ -7,10 +7,12 @@ class PGTeam
             teamName: "",
             points: 0,
             players: [],
-            currentPlayerTurn: ""
+            currentPlayerTurn: "",
+            currentPasswordGiver: ""
         };
 
-        this.currentPlayerIndex = 0;
+        this.currentPlayerIndex = 1;
+        this.passwordGiverIndex = 0;
 
         this.nextPlayerTurn = this.nextPlayerTurn.bind(this);
     }
@@ -32,6 +34,25 @@ class PGTeam
 
         this.data.currentPlayerTurn = 
             this.data.players[this.currentPlayerIndex].data.playerName;
+    }
+
+    /**
+     * Increments passwordGiverIndex and assigns the next password giver
+     * from the players array to currentPasswordGiver
+     */
+    nextPasswordGiverTurn()
+    {
+        if (this.passwordGiverIndex < this.data.players.length - 1)
+        {
+            this.passwordGiverIndex += 1;
+        }
+        else
+        {
+            this.passwordGiverIndex = 0;
+        }
+
+        this.data.currentPasswordGiver =
+            this.data.players[this.passwordGiverIndex].data.playerName;
     }
 }
 
@@ -80,7 +101,15 @@ class PGTeamSetup extends React.Component
     updatePlayerName(name, index)
     {
         this.newTeam.data.players[index].data.playerName = name;
-        this.newTeam.data.currentPlayerTurn = name;
+
+        if (index == 0)
+        {
+            this.newTeam.data.currentPasswordGiver = name;
+        }
+        else if (index == 1)
+        {
+            this.newTeam.data.currentPlayerTurn = name;
+        }
     }
 
     /**
@@ -107,11 +136,17 @@ class PGTeamSetup extends React.Component
             }
         }
 
-        // Assign newTeam.currentPlayerTurn 
+        // Assign newTeam.currentPasswordGiver 
         // only if players array is empty
+        // Otherwise, assign player turn to second player
         if (this.newTeam.data.players.length < 1)
         {
-            this.newTeam.data.currentPlayerTurn = 
+            this.newTeam.data.currentPasswordGiver = 
+                newPlayer.data.playerName;
+        }
+        else if (this.newTeam.data.players.length == 1)
+        {
+            this.newTeam.data.currentPlayerTurn =
                 newPlayer.data.playerName;
         }
 

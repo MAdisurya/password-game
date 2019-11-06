@@ -8,6 +8,8 @@ class PGGame extends PGScene
         this.maxRounds = 5;
         this.penaltyPoints = -4;
 
+        this.passwordGiversString = "";
+
         this.passwordList = new PGPasswordList();
 
         this.state = {
@@ -36,31 +38,25 @@ class PGGame extends PGScene
     componentDidMount()
     {
         this.setRandomPassword();
-
-        this.setState({
-            currentTeamName: AppManager
-                .gameTeams[this.state.currentTeamTurn].data.teamName,
-            currentPlayerTurn: AppManager
-                .gameTeams[this.state.currentTeamTurn].data.currentPlayerTurn
-        });
     }
 
     sceneDidLoad()
     {
         super.sceneDidLoad();
 
-        this.setState((state) => ({
-            passwordGivers: this.getPasswordGivers(state.currentTeamTurn)
-        }));
-
-        console.log(this.getPasswordGivers(this.state.currentTeamTurn));
+        this.setState({
+            currentTeamName: AppManager
+                .gameTeams[this.state.currentTeamTurn].data.teamName,
+            currentPlayerTurn: AppManager
+                .gameTeams[this.state.currentTeamTurn].data.currentPlayerTurn,
+            passwordGivers: this.getPasswordGivers()
+        });
     }
 
     /**
      * Returns the password givers for the specified turn
-     * @param {*} turnIndex - (Number) the turn index
      */
-    getPasswordGivers(turnIndex)
+    getPasswordGivers()
     {
         var playerNames = [];
 
@@ -69,8 +65,14 @@ class PGGame extends PGScene
             for (var i = 0; i < AppManager.gameTeams.length; i++)
             {
                 var team = AppManager.gameTeams[i];
+                playerNames.push(team.data.currentPasswordGiver);
+
+                this.passwordGiversString += team.data.currentPasswordGiver;
                 
-                playerNames.push(team.data.players[0].data.playerName);
+                if (i < AppManager.gameTeams.length - 1)
+                {
+                    this.passwordGiversString += ", ";
+                }
             }
         }
         catch (err)
@@ -195,7 +197,8 @@ class PGGame extends PGScene
     {
         // Need to replace - change text of game subheader instead of hiding/unhiding
         document.getElementById("new-password-btn").style.visibility = "hidden";
-        document.getElementById("pg-game-sub-header").style.visibility = "visible";
+        document.getElementById("pg-game-sub-header-one").style.display = "none";
+        document.getElementById("pg-game-sub-header-two").style.display = "block";
         document.getElementById("pg-game-btn-wrapper")
             .classList.add("slide-horizontal-end");
 
@@ -208,9 +211,18 @@ class PGGame extends PGScene
      */
     endRound()
     {
+        // Reset the password givers string
+        this.passwordGiversString = "";
+
+        // Re-assign the new password givers in state.passwordGivers
+        this.setState({
+            passwordGivers: this.getPasswordGivers()
+        });
+
         // Need to replace - change text of game subheader instead of hiding/unhiding
         document.getElementById("new-password-btn").style.visibility = "visible";
-        document.getElementById("pg-game-sub-header").style.visibility = "hidden";
+        document.getElementById("pg-game-sub-header-one").style.display = "block";
+        document.getElementById("pg-game-sub-header-two").style.display = "none";
         document.getElementById("pg-game-btn-wrapper")
             .classList.remove("slide-horizontal-end");
 
@@ -231,6 +243,7 @@ class PGGame extends PGScene
         for (var i = 0; i < AppManager.gameTeams.length; i++)
         {
             AppManager.gameTeams[i].nextPlayerTurn();
+            AppManager.gameTeams[i].nextPasswordGiverTurn();
         }
 
         this.awardPoints(this.state.currentTeamTurn);
@@ -333,7 +346,10 @@ class PGGame extends PGScene
                 </div>
                 <div className="pg-password-holder">
                     <div id="pg-game-sub-header-ctn" className="sub-header-ctn">
-                        <h3 id="pg-game-sub-header">
+                        <h3 id="pg-game-sub-header-one">
+                            {this.passwordGiversString} - Look at the Password
+                        </h3>
+                        <h3 id="pg-game-sub-header-two">
                             {this.state.currentTeamName}: {this.state.currentPlayerTurn}
                         </h3>
                     </div>
