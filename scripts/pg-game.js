@@ -33,6 +33,8 @@ class PGGame extends PGScene
         this.resetProps = this.resetProps.bind(this);
         this.resetGame = this.resetGame.bind(this);
         this.endGame = this.endGame.bind(this);
+        this.showPassword = this.showPassword.bind(this);
+        this.hidePassword = this.hidePassword.bind(this);
     }
 
     componentDidMount()
@@ -219,6 +221,8 @@ class PGGame extends PGScene
             passwordGivers: this.getPasswordGivers()
         });
 
+        this.hidePassword();
+
         // Need to replace - change text of game subheader instead of hiding/unhiding
         document.getElementById("new-password-btn").style.visibility = "visible";
         document.getElementById("pg-game-sub-header-one").style.display = "block";
@@ -337,6 +341,30 @@ class PGGame extends PGScene
         PGSceneManager.goToScene("pg-game-over");
     }
 
+    /**
+     * Shows the password and hides the show password button
+     */
+    showPassword()
+    {
+        document.getElementById("pg-password").style.display = "block";
+        document.getElementById("new-password-btn").style.display = "block";
+        document.getElementById("show-password-btn").style.display = "none";
+
+        document.getElementById("pg-game-start-btn").style.visibility = "visible";
+    }
+
+    /**
+     * Hides the password and shows the show password button
+     */
+    hidePassword()
+    {
+        document.getElementById("pg-password").style.display = "none";
+        document.getElementById("new-password-btn").style.display = "none";
+        document.getElementById("show-password-btn").style.display = "block";
+
+        document.getElementById("pg-game-start-btn").style.visibility = "hidden";
+    }
+
     render()
     {
         return (
@@ -353,7 +381,12 @@ class PGGame extends PGScene
                             {this.state.currentTeamName}: {this.state.currentPlayerTurn}
                         </h3>
                     </div>
-                    <h2 onClick={this.onCheat}>"{this.state.password}"</h2>
+                    <PGButton
+                        buttonName="Show Password"
+                        id="show-password-btn"
+                        className="show-password-btn"
+                        onClick={this.showPassword} />
+                    <h2 id="pg-password" onClick={this.onCheat}>"{this.state.password}"</h2>
                     <PGButton
                         buttonName="New Password"
                         id="new-password-btn"
@@ -365,6 +398,7 @@ class PGGame extends PGScene
                         <div className="pg-button-ctn">
                             <PGButton
                                 buttonName="Start"
+                                id="pg-game-start-btn"
                                 className="start-btn"
                                 onClick={this.startRound} />
                         </div>
