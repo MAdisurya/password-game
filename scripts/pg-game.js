@@ -19,6 +19,7 @@ class PGGame extends PGScene
             currentTeamTurn: 0,
             currentTeamName: "",
             currentPlayerTurn: "",
+            currentPasswordGiver: "",
             passwordGivers: []
         };
 
@@ -51,6 +52,8 @@ class PGGame extends PGScene
                 .gameTeams[this.state.currentTeamTurn].data.teamName,
             currentPlayerTurn: AppManager
                 .gameTeams[this.state.currentTeamTurn].data.currentPlayerTurn,
+            currentPasswordGiver: AppManager
+                .gameTeams[this.state.currentTeamTurn].data.currentPasswordGiver,
             passwordGivers: this.getPasswordGivers()
         });
     }
@@ -169,7 +172,9 @@ class PGGame extends PGScene
                     .gameTeams[state.currentTeamTurn + 1].data.teamName,
                 currentTeamTurn: state.currentTeamTurn + 1,
                 currentPlayerTurn: AppManager
-                    .gameTeams[state.currentTeamTurn + 1].data.currentPlayerTurn
+                    .gameTeams[state.currentTeamTurn + 1].data.currentPlayerTurn,
+                currentPasswordGiver: AppManager
+                    .gameTeams[state.currentTeamTurn + 1].data.currentPasswordGiver
             }));
 
             // Change color scheme
@@ -184,7 +189,9 @@ class PGGame extends PGScene
                     .gameTeams[0].data.teamName,
                 currentTeamTurn: 0,
                 currentPlayerTurn: AppManager
-                    .gameTeams[0].data.currentPlayerTurn
+                    .gameTeams[0].data.currentPlayerTurn,
+                currentPasswordGiver: AppManager
+                    .gameTeams[0].data.currentPasswordGiver
             });
 
             // Change color scheme
@@ -378,7 +385,7 @@ class PGGame extends PGScene
                             {this.passwordGiversString} - Look at the Password
                         </h3>
                         <h3 id="pg-game-sub-header-two">
-                            {this.state.currentTeamName}: {this.state.currentPlayerTurn}
+                            {this.state.currentTeamName}: {this.state.currentPasswordGiver}
                         </h3>
                     </div>
                     <PGButton
