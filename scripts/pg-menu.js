@@ -18,7 +18,13 @@ class PGMenu extends PGScene
                         PGSceneManager.goToScene("pg-team-setup");
                     }} 
                 />
-                <PGButton buttonName="Rules" className="rules-btn" />
+                <PGButton 
+                    buttonName="Rules" 
+                    className="rules-btn"
+                    onClick={() => {
+                        window.location.href = "https://www.thegamegal.com/2017/11/10/password/";
+                    }} 
+                />
                 <PGButton buttonName="Credits" className="credits-btn" />
             </section>
         );
