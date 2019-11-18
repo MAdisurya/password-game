@@ -330,6 +330,9 @@ class PGGame extends PGScene
             currentTeamTurn: 0,
         });
 
+        this.passwordGiversString = "";
+
+        this.setCurrentTeamTurn(0);
         this.setRandomPassword();
     }
 

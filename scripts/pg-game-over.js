@@ -30,6 +30,14 @@ class PGGameOver extends PGScene
                         </div>
                     ))}
                 </div>
+                <PGButton 
+                    className="pg-replay-btn"
+                    buttonName="Play Again"
+                    onClick={() => {
+                        AppManager.resetTeamPoints();
+                        PGSceneManager.goToScene("pg-game");
+                    }}
+                />
             </section>
         );
     }

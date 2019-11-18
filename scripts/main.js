@@ -12,6 +12,17 @@ class AppManager
     }
 
     /**
+     * Resets all registered teams points to zero
+     */
+    static resetTeamPoints()
+    {
+        for (var i = 0; i < this.gameTeams.length; i++)
+        {
+            this.gameTeams[i].resetPoints();
+        }
+    }
+
+    /**
      * Reverse merge sort method that takes in teams array,
      * applies divide and conquer algorithm, and returns the teams array
      * in descending order (largest first)

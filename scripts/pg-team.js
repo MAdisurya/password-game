@@ -54,6 +54,14 @@ class PGTeam
         this.data.currentPasswordGiver =
             this.data.players[this.passwordGiverIndex].data.playerName;
     }
+
+    /**
+     * Resets the teams points to zero
+     */
+    resetPoints()
+    {
+        this.data.points = 0;
+    }
 }
 
 class PGTeamSetup extends React.Component
