@@ -25,7 +25,13 @@ class PGMenu extends PGScene
                         window.location.href = "https://www.thegamegal.com/2017/11/10/password/";
                     }} 
                 />
-                <PGButton buttonName="Credits" className="credits-btn" />
+                <PGButton 
+                    buttonName="Credits" 
+                    className="credits-btn"
+                    onClick={() => {
+                        PGSceneManager.goToScene("pg-credits");
+                    }}
+                />
             </section>
         );
     }
