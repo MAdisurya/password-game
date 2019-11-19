@@ -113,6 +113,10 @@ class App extends React.Component
                     sceneName="pg-menu"
                 />
 
+                <PGCredits
+                    sceneName="pg-credits"
+                />
+
                 <PGTeamSetupScene 
                     sceneName="pg-team-setup"
                 />
