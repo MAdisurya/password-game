@@ -219,10 +219,10 @@ class PGTeamSetupScene extends PGScene
                 </div>
 
                 <PGButton 
-                    buttonName="Start" 
+                    buttonName="Next" 
                     className="start-btn"
                     onClick = {() => {
-                        PGSceneManager.goToScene("pg-game");
+                        PGSceneManager.goToScene("pg-settings");
                     }} 
                 />
             </section>
