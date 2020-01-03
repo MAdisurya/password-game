@@ -15,6 +15,15 @@ class PGSettings extends PGScene
                     <h2>PASSWORD PACKS</h2>
                 </div>
 
+                <div className="pg-checkbox-ctn-outer">
+                    <PGCheckbox 
+                        buttonName="English Pack"
+                        key="ENG" />
+                    <PGCheckbox 
+                        buttonName="Indonesia Pack"
+                        key="INDO" />
+                </div>
+
                 <PGButton 
                     buttonName="Start"
                     className="start-btn"
