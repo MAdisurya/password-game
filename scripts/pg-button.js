@@ -28,3 +28,18 @@ class PGButtonCircle extends PGButton
         this.className += "--circle";
     }
 }
+
+class PGCheckbox extends React.Component
+{
+    render()
+    {
+        return (
+            <div className="pg-checkbox-ctn">
+                <div>
+                    <h3>{this.props.buttonName}</h3>
+                </div>
+                <input type="checkbox"></input>
+            </div>
+        );
+    }
+}
