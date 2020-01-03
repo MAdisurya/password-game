@@ -121,6 +121,10 @@ class App extends React.Component
                     sceneName="pg-team-setup"
                 />
 
+                <PGSettings 
+                    sceneName="pg-settings"
+                />
+
                 <PGGame 
                     sceneName="pg-game"
                 />
