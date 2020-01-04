@@ -18,11 +18,11 @@ class PGSettings extends PGScene
                 <div className="pg-checkbox-ctn-outer">
                     <PGCheckbox 
                         buttonName="English Pack"
-                        key="ENG"
+                        keyName="ENG"
                         checked={true} />
                     <PGCheckbox 
                         buttonName="Indonesia Pack"
-                        key="INDO" />
+                        keyName="INDO" />
                 </div>
 
                 <PGButton 
