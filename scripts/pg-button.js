@@ -43,6 +43,28 @@ class PGCheckbox extends React.Component
         }
 
         this.toggleCheck = this.toggleCheck.bind(this);
+        this.handlePasswordPack = this.handlePasswordPack.bind(this);
+
+        if (this.state.isChecked) 
+        { 
+            AppManager.registerPasswordPack(this.props.keyName); 
+        }
+    }
+
+    /**
+     * Helper method that handles appending or removing
+     * password packs from AppManager.passwordPacks
+     */
+    handlePasswordPack()
+    {
+        if (!this.state.isChecked)
+        {
+            AppManager.registerPasswordPack(this.props.keyName);
+        }
+        else
+        {
+            AppManager.removePasswordPack(this.props.keyName);
+        }
     }
 
     /**
@@ -53,6 +75,8 @@ class PGCheckbox extends React.Component
         this.setState({
             isChecked: !this.state.isChecked
         });
+
+        this.handlePasswordPack();
     }
 
     render()
