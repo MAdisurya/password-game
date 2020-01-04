@@ -31,14 +31,44 @@ class PGButtonCircle extends PGButton
 
 class PGCheckbox extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+
+        this.checked = (this.props.checked == undefined) ?
+            false : this.props.checked;
+
+        this.state = {
+            isChecked: this.checked
+        }
+
+        this.toggleCheck = this.toggleCheck.bind(this);
+    }
+
+    /**
+     * Helper method that toggles this.state.isChecked
+     */
+    toggleCheck()
+    {
+        this.setState({
+            isChecked: !this.state.isChecked
+        });
+    }
+
     render()
     {
         return (
             <div className="pg-checkbox-ctn">
-                <div>
+                <div className="pg-label-ctn">
                     <h3>{this.props.buttonName}</h3>
                 </div>
-                <input type="checkbox"></input>
+                <div className="pg-checkbox">
+                    <input 
+                        type="checkbox"
+                        onChange={this.toggleCheck}
+                        checked={this.state.isChecked}
+                    />
+                </div>
             </div>
         );
     }
