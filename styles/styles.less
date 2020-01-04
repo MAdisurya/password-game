@@ -58,6 +58,10 @@
 @small-button-width: 160px;
 @circle-button-width: 64px;
 
+// Labels
+@label-text-align: left;
+@label-width: 80%;
+
 //  --------------------------------
 //  App
 //  --------------------------------
@@ -110,6 +114,11 @@ h2
     font-size: @h2-font-size;
 
     text-align: @h2-text-algin;
+
+    @media screen and (max-width: 1024px)
+    {
+        font-size: @h2-font-size * 2;
+    }
 }
 
 h2.p1-color
@@ -130,6 +139,11 @@ h3
     text-align: @h3-text-align;
 
     margin: 0;
+
+    @media screen and (max-width: 1024px)
+    {
+        font-size: @h3-font-size * 1.5;
+    }
 }
 
 p
@@ -230,15 +244,33 @@ section
 .pg-checkbox-ctn
 {
     width: 360px;
-
+    height: @input-height;
     display: block;
-    margin: auto;
+    margin: @input-margin-top auto @input-margin-bottom auto;
+
+    @media screen and (max-width: 1024px)
+    {
+        width: 100%;
+        height: @input-height * 2;
+    }
 }
 
 .pg-checkbox-ctn-outer
 {
     width: 100%;
     display: inline-block;
+}
+
+.pg-label-ctn
+{
+    width: @label-width;
+    display: inline-block;
+    margin: auto;
+
+    h1, h2, h3
+    {
+        text-align: @label-text-align;
+    }
 }
 
 //  --------------------------------
@@ -332,6 +364,23 @@ input
     display: inline-block;
 }
 
+.pg-checkbox
+{
+    width: 20%;
+
+    display: inline-block;
+    margin: 0;
+
+    input[type="checkbox"]
+    {
+        width: auto;
+        height: auto;
+
+        display: block;
+        margin: auto;
+    }
+}
+
 #pg-game-start-btn
 {
     visibility: hidden;
@@ -353,7 +402,7 @@ input
 .fade-transition-show
 {
     top: 0px;
-    max-height: 1500px;
+    max-height: 1600px;
     opacity: 1;
 
     .transition-delay(1s);
@@ -391,6 +440,13 @@ input
 {
     border-color: #000000;
     border-radius: 64px 64px 64px 64px;
+}
+
+.scale(@amount)
+{
+    transform: scale(@amount);
+    -webkit-transform: scale(@amount);
+    -moz-transform: scale(@amount);
 }
 
 // ---------------------------------
