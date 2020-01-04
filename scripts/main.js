@@ -1,6 +1,9 @@
 class AppManager
 {
     static gameTeams = [];
+    
+    // Game settings
+    static passwordPacks = [];
 
     /**
      * Registers a PGTeam into the static AppManager.gameTeams array
@@ -9,6 +12,35 @@ class AppManager
     static registerTeam(team)
     {
         this.gameTeams.push(team);
+    }
+
+    /**
+     * Registers the password pack name into the static 
+     * AppManager.passwordPacks array
+     * @param {*} packName - the name of the password pack to register
+     */
+    static registerPasswordPack(packName)
+    {
+        this.passwordPacks.push(packName);
+    }
+
+    /**
+     * Removes the password pack with the passed pack name
+     * from the AppManager.passwordPacks array
+     * @param {*} packName - the name of the password pack to remove
+     */
+    static removePasswordPack(packName)
+    {
+        for (var i = 0; i < this.passwordPacks.length; i++)
+        {
+            if (packName == this.passwordPacks[i])
+            {
+                this.passwordPacks.splice(i, 1);
+                return;
+            }
+        }
+
+        throw `The password pack: ${packName} does not exist!`;
     }
 
     /**

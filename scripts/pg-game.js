@@ -38,11 +38,6 @@ class PGGame extends PGScene
         this.hidePassword = this.hidePassword.bind(this);
     }
 
-    componentDidMount()
-    {
-        this.setRandomPassword();
-    }
-
     sceneDidLoad()
     {
         super.sceneDidLoad();
@@ -56,6 +51,8 @@ class PGGame extends PGScene
                 .gameTeams[this.state.currentTeamTurn].data.currentPasswordGiver,
             passwordGivers: this.getPasswordGivers()
         });
+
+        this.setRandomPassword();
     }
 
     /**
@@ -94,11 +91,16 @@ class PGGame extends PGScene
      */
     setRandomPassword()
     {
-        const randomNumber = 
-            Math.floor(Math.random() * (this.passwordList.list.length - 1));
+        const randomKNum = 
+            Math.round(Math.random() * 
+                (AppManager.passwordPacks.length - 1));
+        const key = AppManager.passwordPacks[randomKNum];
+        const randomVNum = 
+            Math.round(Math.random() * 
+                (this.passwordList.list[key].length - 1));
 
         this.setState({
-            password: this.passwordList.list[randomNumber]
+            password: this.passwordList.list[key][randomVNum]
         });
     }
 
